@@ -19,7 +19,8 @@ CP = cp -f
 main = proj
 cxxflags = -W -Wall -Wextra -ansi -g
 ldflags = -L/opt/local/lib
-libs = -lcurl -lpcrecpp -lyaml-cpp -largtable2 -lUnitTest++
+libs = -lcurl -lpcrecpp -lyaml-cpp -largtable2
+testlibs = -lUnitTest++
 includes = -I/opt/local/include
 source := ${wildcard src/*.cc}
 objects := ${source:.cc=.o}
@@ -47,7 +48,7 @@ ${main}: ${objects}
 	${CXX} ${ldflags} ${includes} ${objects} -o ${main} ${libs}
 
 ${test}: ${testobjects}
-	${CXX} ${ldflags} ${includes} ${testobjects} -o ${test} ${libs}
+	${CXX} ${ldflags} ${includes} ${testobjects} -o ${test} ${libs} ${testlibs}
 
 src/%.o: src/%.cc
 	${CXX} -c ${cxxflags} ${includes} -MMD -o $@ $<
